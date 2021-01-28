@@ -6,7 +6,7 @@ For details, please see:
 Wei Y. et al., Statistical testing and annotation of gene transcriptomic-neuroimaging associations, in preparation.
 
 # Processing
-GAMBA is a front-end interaction interface based on pre-processed gene transcrptiomic data and imaging data. Processing steps and statistical analyses are included in ./processing
+GAMBA is a web-application with a front-end interface based on pre-processed gene transcrptiomic data and imaging data. Processing steps and statistical analyses are included in ./processing
 
 # Examples
 We use three simple examples that show analyses commonly performed in literature to illustrate the usage of different statistical null models. Examples include human-supragranular-enriched (HSE) genes, APOE gene, and risk genes of autism spectrum disorder (ASD). Relevant scripts are included in ./examples

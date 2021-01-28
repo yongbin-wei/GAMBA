@@ -1,4 +1,5 @@
 /data
 /simulation/*.sh
 /simulation/output
+/processing/*.sh
 /figures

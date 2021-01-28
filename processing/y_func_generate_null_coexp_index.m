@@ -11,7 +11,7 @@ gs_all_size = [5:5:495, 500:10:1000];
 m = numel(gs_all_size);
 
 % initialize
-for ii = 2:m % for each geneset size
+for ii = 1:m % for each geneset size
     gs_size = gs_all_size(ii);
     disp(num2str(gs_size));
 
