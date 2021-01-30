@@ -33,21 +33,23 @@ Gsub_G_coexp = compute_Gsub_G_coexp(Grand, G);
 [~, Gsub_G_coexp_sorted_idx] = sort(Gsub_G_coexp, 'ascend'); % + -> 0
 Gsub_G_coexp_sorted_idx(ismember(Gsub_G_coexp_sorted_idx, gene_id)) = [];
 
+nRep = ceil(NG/100);
 
 % do if delta_coexp > maxdiff
 while abs(delta_coexp) > maxDiff
     nCount = nCount + 1;
     
+    disp(num2str(nCount));
     % in case we need to decrease coexpression level
     if delta_coexp > 0
         % find gene with max coexpression and drop it
-        [~, idx_max] = max(tmp_coexp_mean);
+        [~, idx_max] = maxk(tmp_coexp_mean, nRep);
         Grand(:, idx_max) = [];        
         gene_id(idx_max) = [];
         
         % add a new gene
-        rid = Gsub_G_coexp_sorted_idx(1); % replace with the one differs the most
-        Gsub_G_coexp_sorted_idx(1) = [];
+        rid = Gsub_G_coexp_sorted_idx(1:nRep); % replace with the one differs the most
+        Gsub_G_coexp_sorted_idx(1:nRep) = [];
         
         Grand = [Grand, G(:, rid)];
         gene_id = [gene_id, rid];
@@ -60,13 +62,13 @@ while abs(delta_coexp) > maxDiff
     % in case we need to incease coexpression level
     else
         % find gene with min coexpression and drop it
-        [~, idx_min] = min(tmp_coexp_mean);
+        [~, idx_min] = mink(tmp_coexp_mean, nRep);
         Grand(:, idx_min) = [];        
         gene_id(idx_min) = '';
         
         % add a new gene  
-        rid = Gsub_G_coexp_sorted_idx(end); % replace with the one differs the most
-        Gsub_G_coexp_sorted_idx(end) = [];
+        rid = Gsub_G_coexp_sorted_idx((end-nRep+1):end); % replace with the one differs the most
+        Gsub_G_coexp_sorted_idx((end-nRep+1):end) = [];
         Grand = [Grand, G(:, rid)];
         gene_id = [gene_id, rid];
            
@@ -77,16 +79,16 @@ while abs(delta_coexp) > maxDiff
         coexp = tmp_coexp_mean_mean;
     end
         
-    if nCount == 100
-        % disp('ERROR: fail to find random genes. Please use larger maxdiff and retry');
+    if nCount == 500
+        disp('ERROR: fail to find random genes. Please use larger maxdiff and retry');
         status = false;
         break
     end    
 end
 
-% if status == true 
-%     disp('## Finished without errors');
-% end
+if status == true 
+    disp('## Finished without errors');
+end
 
 end
 

@@ -1,3 +1,6 @@
+% Performing statistical analyses of null-random, null-brain, and
+% null-coexpression models
+
 clear, clc, close all
 
 disp('Preprocessing data for GAMBA');
@@ -80,7 +83,11 @@ outDir = './output/idx_null_coexp/';
 if ~exist(outDir, 'dir')
     mkdir(outDir);
     % this script generate all needed variables
-    y_func_generate_null_coexp_index('./input/input.mat', outDir);
+    gs_all_size = [5:5:495, 500:10:1000];
+    m = numel(gs_all_size);
+    for ii = 1:m
+      y_func_generate_null_coexp_index('./input/input.mat', outDir, num2str(gs_all_size(ii)));
+    end
 end
 
 disp('## ## Association with imaging');
@@ -97,3 +104,4 @@ for ii = 1: m
     y_func_permutation_coexp(inputDir, outputPath, gsSize, coexpDir);
     y_func_permutation_ge_coexp(inputDir, outputPath, gsSize, coexpDir);
 end
+
