@@ -3,7 +3,9 @@ GAMBA is a web-based application (www.dutchconnectomelab.nl/GAMBA/) that can be 
 
 For details, please see:
 
-Wei Y. et al., Statistical testing and annotation of gene transcriptomic-neuroimaging associations, in preparation.
+- Wei Y. et al., Statistical testing and annotation of gene transcriptomic-neuroimaging associations, in preparation.
+
+- Wei, Y. et al. (2019), Genetic mapping and evolutionary analysis of human-expanded cognitive networks. Nat Commun. https://doi.org/10.1038/s41467-019-12764-8
 
 # Processing
 GAMBA is a web-application with a front-end interface based on pre-processed gene transcriptomic data and imaging data. Processing steps and statistical analyses are included in "./processing"
