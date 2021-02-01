@@ -2,4 +2,6 @@
 /simulation/*.sh
 /simulation/output
 /processing/*.sh
+/processing/input/
+/processing/output/
 /figures
