@@ -1,5 +1,5 @@
-% Performing statistical analyses of null-random, null-brain, and
-% null-coexpression models
+% Performing statistical analyses of (1) null-random, (2) null-brain, and
+% (3) null-coexpression models
 
 clear, clc, close all
 
@@ -42,6 +42,11 @@ m = numel(gs_all_size);
 disp('## Start permutation analysis');
 
 inputDir = './input/input.mat';
+outputDir = fullfile(outputPath, 'null_random');
+
+if ~exist(outputDir, 'dir')
+    mkdir(outputDir);
+end
 
 disp('## Start null-random model ...')
 poolobj = parpool(N_par);
@@ -50,14 +55,19 @@ parfor ii = 1: m
     if mod(gsSize, 10) == 0
         disp(['#### ', num2str(gsSize)]);
     end
-    y_func_permutation(inputDir, outputPath, gsSize, 'nullrandom');
-    y_func_permutation_ge(inputDir, outputPath, gsSize, 'nullrandom');
+    y_func_permutation(inputDir, outputDir, gsSize, 'nullrandom');
+    y_func_permutation_ge(inputDir, outputDir, gsSize, 'nullrandom');
 end
 delete(poolobj)
 
 
 %% Null-brain model
 inputDir = './input/input.mat';
+outputDir = fullfile(outputPath, 'null_brain');
+
+if ~exist(outputDir, 'dir')
+    mkdir(outputDir);
+end
 
 disp('## Start null-brain model ...')
 poolobj = parpool(N_par);
@@ -66,14 +76,19 @@ parfor ii = 1: m
     if mod(gsSize, 10) == 0
         disp(['#### ', num2str(gsSize)]);
     end
-    y_func_permutation(inputDir, outputPath, gsSize, 'nullbrain');
-    y_func_permutation_ge(inputDir, outputPath, gsSize, 'nullbrain');
+    y_func_permutation(inputDir, outputDir, gsSize, 'nullbrain');
+    y_func_permutation_ge(inputDir, outputDir, gsSize, 'nullbrain');
 end
 delete(poolobj)
 
 
 %% Null-coexpression model
 inputDir = './input/input.mat';
+outputDir = fullfile(outputPath, 'null_random');
+
+if ~exist(outputDir, 'dir')
+    mkdir(outputDir);
+end
 
 disp('## Start null-coexpression');
 
@@ -101,7 +116,7 @@ for ii = 1: m
     if mod(gsSize, 10) == 0
         disp(['#### ', num2str(gsSize)]);
     end
-    y_func_permutation_coexp(inputDir, outputPath, gsSize, coexpDir);
-    y_func_permutation_ge_coexp(inputDir, outputPath, gsSize, coexpDir);
+    y_func_permutation_coexp(inputDir, outputDir, gsSize, coexpDir);
+    y_func_permutation_ge_coexp(inputDir, outputDir, gsSize, coexpDir);
 end
 
