@@ -1,15 +1,15 @@
-% Performing statistical analysis for GAMBA
+% ======= Performing statistical analysis for GAMBA =======
 
-% Download necessary input data
+% Step 1. Download necessary input data
 scripts_download.m
 
-% Run null-random, null-brain, null-coexpression models
+% Step 2. Run null-random, null-brain, null-coexpression models
 scripts_statistics.m
 
-% Run null-spin model
+% Step 3. Run null-spin model
 scripts_statistics_spin.m
 
-% Make json files for GAMBA
+% Step 4. Make json files for GAMBA
 
 
 
