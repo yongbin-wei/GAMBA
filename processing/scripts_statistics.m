@@ -14,7 +14,7 @@ dataPath = fullfile(fileparts(filePath), 'data');
 disp('## The data path is:')
 disp(dataPath)
 
-imgIn = fullfile(dataPath, 'IMG_DATA_ALL_20200803.mat');
+imgIn = fullfile(dataPath, 'img_data.mat');
 disp('## The input file is: ');
 disp(imgIn)
 
