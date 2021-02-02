@@ -12,7 +12,7 @@ GAMBA is a web-application with a front-end interface based on pre-processed gen
 
 Briefly, given an input gene expression data matrix (region by gene) and phenotypic data matrix (region by phenotype), linear regression is performed to first examine the spatial overlap between gene expression and the phenotypic profile. Null-random, null-brain, and null_coexpression models are implemented to examine the gene specificity. Null-spin model is implemented to examine the spatial specificity. 
 
-To get started, please see "*./processing/README.txt*" for details. Please note that it may take few days to finish all processing, because GAMBA pre-compute results for gene sets with a large range of sizes.
+To get started, please see "*./processing/README.txt*" for details. Please note that it may be computational costly to finish all processing, because GAMBA pre-compute results for gene sets with a large range of sizes.
 
 ## Examples
 We use three simple examples that show analyses commonly performed in literature to illustrate the usage of different statistical null models. Examples include human-supragranular-enriched (HSE) genes, APOE gene, and risk genes of autism spectrum disorder (ASD). Relevant scripts are included in "*./examples*"

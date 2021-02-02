@@ -84,7 +84,7 @@ delete(poolobj)
 
 %% Null-coexpression model
 inputDir = './input/input.mat';
-outputDir = fullfile(outputPath, 'null_random');
+outputDir = fullfile(outputPath, 'null_coexpression');
 
 if ~exist(outputDir, 'dir')
     mkdir(outputDir);
@@ -101,7 +101,8 @@ if ~exist(outDir, 'dir')
     gs_all_size = [5:5:495, 500:10:1000];
     m = numel(gs_all_size);
     for ii = 1:m
-      y_func_generate_null_coexp_index('./input/input.mat', outDir, num2str(gs_all_size(ii)));
+      y_func_generate_null_coexp_index('./input/input.mat', outDir, ...
+          num2str(gs_all_size(ii)));
     end
 end
 
@@ -112,11 +113,28 @@ m = numel(gs_all_size);
 
 for ii = 1: m
     gsSize = gs_all_size(ii);
-    coexpDir = ['./output/idx_null_coexp/idx_rand_', num2str(gsSize), '.mat'];
+    coexpFile = ['./output/idx_null_coexp/idx_rand_', num2str(gsSize), '.mat'];
     if mod(gsSize, 10) == 0
         disp(['#### ', num2str(gsSize)]);
     end
-    y_func_permutation_coexp(inputDir, outputDir, gsSize, coexpDir);
-    y_func_permutation_ge_coexp(inputDir, outputDir, gsSize, coexpDir);
+    y_func_permutation_coexp(inputDir, outputDir, gsSize, coexpFile);
+    y_func_permutation_ge_coexp(inputDir, outputDir, gsSize, coexpFile);
 end
+
+
+%% Null-spin model
+disp('## Start null-spin model ...')
+
+inputDir = './input/input.mat';
+outputDir = fullfile(outputPath, 'null_spin');
+spinDir = '../data/gene_expression_spinned';
+
+poolobj = parpool(N_par);
+parfor ii = 1: nGenes
+    gene = gene_symbols{ii};
+    disp(['#### ', num2str(ii), ': ', gene]);    
+
+    y_func_permutation_spin(inputDir, spinDir, gene, outputDir);
+end
+delete(poolobj)
 

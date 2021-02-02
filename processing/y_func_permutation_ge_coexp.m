@@ -1,11 +1,18 @@
-function y_func_permutation_ge_coexp(inputDir, outputDir, gsSize, coexpDir)
-% inputDir: path to the input .mat file
-%           This file should include following fields: mDataGEctx, staIMG
-% outputDir: path to the output file
+function y_func_permutation_ge_coexp(inputFile, outputDir, gsSize, coexpDir)
+% =========================================================================
+% Input
+%   inputFile -- path to the input .mat file
+%               This file should include following fields: mDataGEctx, staIMG
+%   outputDir -- path to the output folder
+%   gsSize -- size of random gene set
+%   coexpDir -- path to the folder containing processed random gene index
+%
+% by Yongbin Wei 2020, VU University Amsterdam
+% =========================================================================
 
 
 % load data
-load(inputDir, 'mDataGEall');
+load(inputFile, 'mDataGEall');
 nGenes = size(mDataGEall, 2);
 nRegions = size(mDataGEall, 1);
 

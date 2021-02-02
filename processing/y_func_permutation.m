@@ -1,15 +1,18 @@
-function y_func_permutation(inputDir, outputDir, gsSize, nullType)
+function y_func_permutation(inputFile, outputDir, gsSize, nullType)
+% =========================================================================
 % Input
-%   inputDir -- path to the input .mat file
+%   inputFile -- path to the input .mat file
 %               This file should include following fields: mDataGEctx, staIMG
-%   outputDir -- path to the output file
+%   outputDir -- path to the output folder
 %   gsSize -- size of random gene set
 %   nullType -- type of null models, "null-random" or "null-brain"
+%
 % by Yongbin Wei 2020, VU University Amsterdam
+% =========================================================================
 
 
 % load data
-load(inputDir, 'mDataGEctx', 'staIMG', 'BRAINgene_idx');
+load(inputFile, 'mDataGEctx', 'staIMG', 'BRAINgene_idx');
 nGenes = size(mDataGEctx, 2);
 
 if isequal(nullType, 'nullrandom')
