@@ -190,13 +190,3 @@ y_label = data_bmfmri_descriptions(idx(1:10));
 y_barplot(vals, sig_index, 'z score', y_label, ...
     fullfile(figurePath, 'ASD_fmri_chart_ncoexp.svg'), 1, 4, 4)
 
-
-%%
-
-
-spinPath = '../processing/output/genes/';
-for ii = 1: numel(geneset)
-    jsonfile = fullfile(spinPath, [geneset{ii},'.json']);
-    cmd = ['git add ', jsonfile, ' -f'];
-    system(cmd);
-end

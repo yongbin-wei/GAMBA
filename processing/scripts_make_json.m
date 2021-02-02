@@ -12,6 +12,7 @@ disp(outputPath)
 
 load('./input/input.mat')
 
+
 %% write profiles of phenotypes
 datastruct = struct();
 
@@ -60,17 +61,16 @@ fclose(fid);
 
 
 %% write gene expression profiles
-
-for n = 1:(numel(gene_symbols)-1)    
+for n = 1:numel(gene_symbols)    
     gene = gene_symbols{n};
     disp(gene);
     
     % load results from Null-spin
-    spinfile = ['../output/null_spin/', gene, '_beta.txt'];
+    spinfile = ['./output/null_spin/', gene, '_beta.txt'];
     if exist(spinfile, 'file')
         spindata = dlmread(spinfile);
     else
-        spindata = zeros(size(DATA_IMG,2), 2);
+        spindata = zeros(size(staIMG,2), 2);
     end
     
     % gene expression all regions
@@ -106,7 +106,7 @@ for n = 1:(numel(gene_symbols)-1)
 end
 
 disp('## Write all gene expression to: ');
-disp([outputPath, 'genes_v3']);
+disp([outputPath, '/genes']);
 
 
 %% write phenotype data

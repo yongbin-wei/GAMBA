@@ -22,7 +22,7 @@ gene_set_brain = data.gene_brain;
 ge = load(fullfile(projectPath, 'data', 'gene_expression.mat'));
 regionDescription = ge.regionDescriptionCtx;
 
-% load cov
+% load img
 IMG = load(fullfile(projectPath, 'data', 'IMG_DATA_ALL_20200803.mat'));
 dataIMG = IMG.staIMG;
 
