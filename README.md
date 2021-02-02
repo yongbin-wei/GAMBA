@@ -15,7 +15,7 @@ Briefly, given an input gene expression data matrix (region by gene) and phenoty
 To get started, please see `/processing/README.txt` for details. Please note that it may be computational costly to finish all processing. Processed data used for the three examples (see below) are included.
 
 ## Examples
-We use three simple examples that show analyses commonly performed in literature to illustrate the usage of different statistical null models. Examples include human-supragranular-enriched (HSE) genes, APOE gene, and risk genes of autism spectrum disorder (ASD). Scripts are included in `/examples`
+We use three simple examples that show analyses commonly performed in literature to illustrate the usage of different statistical null models. Examples include human-supragranular-enriched (HSE) genes, APOE gene, and risk genes of autism spectrum disorder (ASD). To get started, please see `/examples/README.txt` for details.
 
 - Example of associations between the spatial pattern of HSE gene expression and the connectome metrics:
 
