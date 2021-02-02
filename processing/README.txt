@@ -12,5 +12,5 @@ scripts_statistics_spin.m
 % Step 4. Make json files for GAMBA
 scripts_make_json.m
 
-
+% NOTE: there are several output files in 'output' folder. These files are used in '../examples'.
 
