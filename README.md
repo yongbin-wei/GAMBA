@@ -30,7 +30,7 @@ We use three simple examples that show analyses commonly performed in literature
 `/examples/scripts_example3_ASD.m`
 
 ## Simulation
-We simulate and analyze the outcome of different statistical evaluation approaches for a wide range of real brain phenotypes and artificial gradients. Scripts are included in `/simulation`
+We simulate and analyze the outcome of different statistical evaluation approaches for a wide range of real brain phenotypes and artificial gradients. To get started, please see `/silumation/README.txt` for details.
 
 ## GAMBA platform
 GAMBA is based on Vue.js. Source code can be found at https://github.com/yongbin-wei/webgamba.git.
