@@ -3,6 +3,10 @@ clc, clear, close
 projectPath = fileparts(fileparts(mfilename('fullpath')));
 figurePath = fullfile(projectPath, 'figures');
 
+if ~exist(figurePath, 'dir')
+    mkdir(figurePath)
+end
+
 addpath(genpath(fullfile(projectPath, 'misc')));
 
 % load supragranular genes
@@ -19,7 +23,7 @@ ge = load(fullfile(projectPath, 'data', 'gene_expression.mat'));
 regionDescription = ge.regionDescriptionCtx;
 
 % load cov
-IMG = load(fullfile(projectPath, 'data', 'IMG_DATA_ALL_SINGLE_GENE_20200803.mat'));
+IMG = load(fullfile(projectPath, 'data', 'IMG_DATA_ALL_20200803.mat'));
 dataIMG = IMG.staIMG;
 
 disp(['# HSE genes: ', num2str(numel(gene_set_hse))]);
@@ -30,7 +34,7 @@ geneset = intersect(gene_set_hse, ge.gene_symbols);
 ngenes = numel(idx_gs);
 
 
-% correlation with connectome metrics (LR)
+%% correlation with connectome metrics (LR)
 GG = nanmean(ge.mDataGEctx(:, idx_gs), 2);
 x = GG./ nanstd(GG);
 
@@ -76,3 +80,112 @@ y_scatter(x, y, 'Gene expression', 'SD', ...
 y = imgDATA(:,5);
 y_scatter(x, y, 'Gene expression', 'FC', ...
     '../figures/HSE_fc.svg')
+
+
+%% Null-spin model
+spinPath = '../processing/output/genes/';
+
+II = IMG.DATA_IMG_IDX == 5;
+for ii = 1: numel(geneset)
+    jsonfile = fullfile(spinPath, [geneset{ii},'.json']);
+    fid = fopen(jsonfile); 
+    raw = fread(fid, inf); 
+    str = char(raw'); 
+    fclose(fid); 
+    val = jsondecode(str);
+    mtmp(ii, :) = val.spin_mbeta(II); 
+    stmp(ii, :) = val.spin_sbeta(II);   
+end
+mbeta = nanmean(mtmp, 1)';
+stdbeta = nanmean(stmp, 1)';
+
+zval = (beta - mbeta) ./ stdbeta;
+pval = 2* (1 - normcdf(abs(zval)));
+disp(table(IMG.DATA_IMG_DESCRIPTIONS(II), zval, pval))
+sig_index = find(pval < 0.05 & pval_adj < 0.05);
+
+% bar plot null-spin
+W = 6;
+H = 4;
+y_barplot(zval, sig_index, 'z score', y_label, ...
+    fullfile(figurePath, 'HSE_connectome_chart_nspin.svg'), 1, W, H);
+
+
+%% Null-random model
+nrandomPath = '../processing/output/null_random/';
+jsonfile = fullfile(nrandomPath, ['gs_', num2str(numel(idx_gs)),'.json']);
+
+fid = fopen(jsonfile); 
+raw = fread(fid, inf); 
+str = char(raw'); 
+fclose(fid); 
+val = jsondecode(str);
+
+II = IMG.DATA_IMG_IDX == 5;
+mbeta = val.mbeta(II);
+stdbeta = val.stdbeta(II);
+
+zval = (beta - mbeta) ./ stdbeta;
+pval = 2 * (1 - normcdf(abs(zval)));
+disp(table(IMG.DATA_IMG_DESCRIPTIONS(II), zval, pval))
+sig_index = find(pval < 0.05 & pval_adj < 0.05);
+
+y_barplot(zval, sig_index, 'z score', y_label, ...
+    fullfile(figurePath, 'HSE_connectome_chart_nrandom.svg'), 0, W, H);
+
+
+%% Null-brain
+nbrainPath = '../processing/output/null_brain/';
+jsonfile = fullfile(nbrainPath, ['brain_gs_', num2str(numel(idx_gs)),'.json']);
+
+fid = fopen(jsonfile); 
+raw = fread(fid, inf); 
+str = char(raw'); 
+fclose(fid); 
+val = jsondecode(str);
+mbeta = val.mbeta(II);
+stdbeta = val.stdbeta(II);
+
+zval = (beta - mbeta) ./ stdbeta;
+pval = 2* (1 - normcdf(abs(zval)));
+disp(table(IMG.DATA_IMG_DESCRIPTIONS(II), zval, pval))
+sig_index = find(pval < 0.05 & pval_adj < 0.05);
+
+% bar plot, null-brain
+y_barplot(zval, sig_index, 'z score', y_label, ...
+    fullfile(figurePath, 'HSE_connectome_chart_nbrain.svg'), 0, W, H);
+
+
+%% Null-coexpression
+G = ge.mDataGEctx(:, idx_gs);
+Rtmp = corr(G);
+Rtmp = Rtmp - diag(diag(Rtmp));
+Rtmp = triu(Rtmp);
+orgCoexp = nanmean(nonzeros(Rtmp));
+
+disp(['## Mean Coexpression level of HSE genes:', num2str(orgCoexp)]);
+
+MM = round(numel(idx_gs)/5)*5;
+
+NN = round(orgCoexp * 100);
+NN = floor(NN./5).*5;
+
+nCoexpPath = '../processing/output/null_coexpression/';
+jsonfile = fullfile(nCoexpPath, ...
+    ['coexp_gs_', num2str(NN), '_', num2str(MM), '.json'])
+
+fid = fopen(jsonfile); 
+raw = fread(fid, inf); 
+str = char(raw'); 
+fclose(fid); 
+val = jsondecode(str);
+
+mbeta = val.mbeta(II);
+stdbeta = val.stdbeta(II);
+zval = (beta - mbeta) ./ stdbeta;
+pval = 2* (1 - normcdf(abs(zval)));
+disp(table(IMG.DATA_IMG_DESCRIPTIONS(II), zval, pval))
+sig_index = find(pval < 0.05 & pval_adj < 0.05);
+
+y_barplot(zval, sig_index, 'z score', y_label, ...
+    fullfile(figurePath, 'HSE_connectome_chart_ncoexp.svg'), 0, W, H)
