@@ -10,7 +10,7 @@ scripts_statistics.m
 scripts_statistics_spin.m
 
 % Step 4. Make json files for GAMBA
-
+scripts_make_json.m
 
 
 

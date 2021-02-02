@@ -31,7 +31,9 @@ N_par = 2; % parallel
 % load data
 load(imgIn);
 load(fullfile(dataPath, 'gene_expression.mat'));
-save('./input/input.mat', 'mDataGEctx', 'mDataGEall', 'staIMG', 'BRAINgene_idx');
+save('./input/input.mat', 'mDataGEctx', 'mDataGEall', 'staIMG',...
+    'DATA_IMG_IDX', 'DATA_IMG_DESCRIPTIONS', 'BRAINgene_idx', ...
+    'gene_symbols', 'regionDescriptionAll', 'regionDescriptionCtx');
 
 % gene set sizes
 gs_all_size = [1:499, 500:10:NN];
