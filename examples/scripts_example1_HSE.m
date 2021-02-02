@@ -14,21 +14,15 @@ tbl = readtable(fullfile(projectPath, 'examples', 'gene_supragranular.txt'), ...
     'Delimiter', '\t', 'ReadVariableNames', false);
 gene_set_hse = unique(tbl.Var1);
 
-% load brain genes
-data = load(fullfile(projectPath, 'data', 'GTEx_brain_genes_0.05_updated.mat'));
-gene_set_brain = data.gene_brain;
-
 % load gene expression
 ge = load(fullfile(projectPath, 'data', 'gene_expression.mat'));
 regionDescription = ge.regionDescriptionCtx;
 
 % load img
-IMG = load(fullfile(projectPath, 'data', 'IMG_DATA_ALL_20200803.mat'));
+IMG = load(fullfile(projectPath, 'data', 'img_data.mat'));
 dataIMG = IMG.staIMG;
 
 disp(['# HSE genes: ', num2str(numel(gene_set_hse))]);
-disp(['# BRAIN genes: ', num2str(numel(gene_set_brain))]);
-
 geneset = intersect(gene_set_hse, ge.gene_symbols);
 [~, idx_gs] = ismember(geneset, ge.gene_symbols);
 ngenes = numel(idx_gs);

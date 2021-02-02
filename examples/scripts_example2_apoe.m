@@ -9,16 +9,12 @@ end
 
 addpath(genpath(fullfile(projectPath, 'misc')));
 
-% load brain genes
-data = load(fullfile(projectPath, 'data', 'GTEx_brain_genes_0.05_updated.mat'));
-gene_set_brain = data.gene_brain;
-
 % load gene expression
 ge = load(fullfile(projectPath, 'data', 'gene_expression.mat'));
 regionDescription = ge.regionDescriptionCtx;
 
 % load img
-IMG = load(fullfile(projectPath, 'data', 'IMG_DATA_ALL_20200803.mat'));
+IMG = load(fullfile(projectPath, 'data', 'img_data.mat'));
 dataIMG = IMG.staIMG;
 
 % apoe

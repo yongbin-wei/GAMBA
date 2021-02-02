@@ -1,12 +1,12 @@
-function scripts_all_singlegene_gradients(expressionData, gradientsData, braingenesData, spinDir, outputDir)
+function scripts_all_singlegene_gradients(expressionData, gradientsData, spinDir, outputDir)
 % compute associations between single gene expression profile and three
 % gradients and their combinations
 
 % load processed gene expression data
 ge = load(expressionData);
-II_ctx = contains(ge.regionDescriptions, 'ctx-lh-'); % only lh
-regionDescriptions = ge.regionDescriptions(II_ctx);
-dataGE = ge.mean_gene_expression(II_ctx, :);
+II_ctx = contains(ge.regionDescriptionCtx, 'ctx-lh-'); % only lh
+regionDescriptions = ge.regionDescriptionCtx(II_ctx);
+dataGE = ge.mDataGEctx(II_ctx, :);
 
 % load gradients
 grad = load(gradientsData);
@@ -80,9 +80,7 @@ end
 
 
 % null-brain
-braingenes = load(braingenesData);
-[~, J] = ismember(braingenes.gene_brain, ge.gene_symbol);
-J(J==0) = [];
+J = ge.BRAINgene_idx;
 mbeta_nullbrain = nanmean(beta(J, :), 1);
 stdbeta_nullbrain = nanstd(beta(J, :), '', 1);
 for ii = 1:size(beta, 1)

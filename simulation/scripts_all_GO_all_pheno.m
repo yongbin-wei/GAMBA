@@ -1,11 +1,11 @@
-function scripts_all_GO_all_pheno(expressionData, imgData, goData, braingenesData, spinDir, outputDir)
+function scripts_all_GO_all_pheno(expressionData, imgData, goData, spinDir, outputDir)
 % compute associations between gene expression profiles of GO gene set and all phenotypes involved in GAMBA
 
 % load processed gene expression data
 ge = load(expressionData);
-II_ctx = contains(ge.regionDescriptions, 'ctx-lh-'); % only lh
-regionDescriptions = ge.regionDescriptions(II_ctx);
-dataGE = ge.mean_gene_expression(II_ctx, :);
+II_ctx = contains(ge.regionDescriptionCtx, 'ctx-lh-'); % only lh
+regionDescriptions = ge.regionDescriptionCtx(II_ctx);
+dataGE = ge.mDataGEctx(II_ctx, :);
 
 % load phenotypic imaging data
 IMG = load(imgData);
@@ -127,10 +127,7 @@ save([outputDir, '/LR_NULLSPIN_all_GO_all_pheno.mat'], 'pval_nullrandom', '-appe
 
 % null-brain
 disp('## null-brain');
-braingenes = load(braingenesData);
-[~, J] = ismember(braingenes.gene_brain, ge.gene_symbol);
-J(J==0) = [];
-idx_pool = J;
+idx_pool = ge.BRAINgene_idx;
 
 for ii = 1:nGO
     disp(ii);
