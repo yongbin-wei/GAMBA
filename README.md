@@ -1,5 +1,5 @@
 # GAMBA
-GAMBA is a web-based application (www.dutchconnectomelab.nl/GAMBA/) that can be used to test whether the gene expression profile(s) of the input gene(s) and neuroimaging-derived brain features show overlapped spatial patterns. Source code of the website can be found at XXXX.
+GAMBA is a web-based application (www.dutchconnectomelab.nl/GAMBA/) that can be used to test whether the gene expression profile(s) of the input gene(s) and neuroimaging-derived brain features show overlapped spatial patterns. Source code of the website can be found at https://github.com/yongbin-wei/webgamba.git.
 
 For details, please see:
 
