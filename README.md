@@ -18,7 +18,7 @@ To get started, please see "*./processing/README.txt*" for details. Please note 
 We use three simple examples that show analyses commonly performed in literature to illustrate the usage of different statistical null models. Examples include human-supragranular-enriched (HSE) genes, APOE gene, and risk genes of autism spectrum disorder (ASD). Relevant scripts are included in "*./examples*"
 
 Example of associations between the spatial pattern of HSE gene expression and the connectome metrics:
-'./examples/scripts_example1_HSE.m'
+`./examples/scripts_example1_HSE.m`
 
 ## Simulation
 We simulate and analyze the outcome of different statistical evaluation approaches for a wide range of real brain phenotypes and artificial gradients. Relevant scripts are included in "*./simulation*"
