@@ -56,7 +56,3 @@ else
     warning([spinFile, ' not exist!!'])
 end
 
-
-
-
-

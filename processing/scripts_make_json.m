@@ -148,6 +148,8 @@ end
 fprintf(fid,'%s',']');
 fclose(fid);
 
+fname = fullfile(outputPath, 'GENEsymbols.txt');
+writetable(table(gene_symbols), fname, 'WriteVariableNames', false);
 
 %% write colors_blue.json
 addpath('~/Documents/codes/cbrewer/'); % use cbrewer to make color maps
