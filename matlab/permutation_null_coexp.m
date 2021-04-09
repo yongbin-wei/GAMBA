@@ -35,7 +35,7 @@ function res = permutation_null_coexp(img_data, geneset, expressions, gene_symbo
 if nargin == 2
     filepath = fileparts(mfilename('fullpath'));
     data_ge = load(fullfile(filepath, 'data', 'gene_expression.mat'));
-    disp('Loading default gene expression data in DK114 atlas ...');
+    disp('## Loading default gene expression data in DK114 atlas ...');
     expressions = data_ge.mDataGEctx;
     gene_symbols = data_ge.gene_symbols;
 elseif nargin == 3
@@ -99,19 +99,20 @@ G = expressions(:, II);
 coexp_mat = corr(G, 'rows', 'pairwise');
 mask_tril = tril(ones(size(coexp_mat)), -1);
 coexp = nanmean(coexp_mat(mask_tril == 1));
-disp(['## Mean coexpression: ', num2str(coexp)]);
+disp(['## Mean coexpression: ', num2str(coexp)]); 
 res.coexp_mean = coexp;
 
 coexp_null = nan(nPerm, 1);
 idx_rand_genes = nan(nPerm, nnz(II));
 beta_null = nan(nPerm, M);
+fprintf('%s', '## Progress:     ');
 for kk = 1:nPerm
     tmp_status = false;
     while tmp_status ~= true
         [rid, coexp_null(kk), tmp_status] = y_rand_gs_coexp(...
             expressions, coexp, nnz(II));
     end
-    disp(['## #', num2str(kk), '/', num2str(nPerm), '...']);
+    fprintf('\b\b\b\b%.3d%%', round(kk/nPerm*100));
     idx_rand_genes(kk, :) = rid;
     
     % gene expressions of random genes
@@ -129,7 +130,7 @@ res.permut_coexp_mean = coexp_null;
 
 % compute p-value
 for ii = 1: M
-    P = nnz(double(beta_null(:, ii) > beta)) ./ nPerm;
+    P = nnz(double(beta_null(:, ii) > beta(ii))) ./ nPerm;
     if P > 0.5
         res.p(ii, 1) = (1 - P) * 2;
     else
